@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:5173")
 public class ProductController {
 
     private final ProductRepository productRepository;
@@ -53,7 +54,7 @@ public class ProductController {
 
     @PutMapping("products")
     public Product updateProduct(@RequestBody Product product) {
-        if (product.getId() != null) {
+        if (product.getId() == null) {
             throw new RuntimeException("When updating product, you must give ID");
         }
         validationUtil.validateProduct(product);
