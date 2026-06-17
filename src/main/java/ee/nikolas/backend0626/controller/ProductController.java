@@ -1,11 +1,16 @@
 package ee.nikolas.backend0626.controller;
 
+import ee.nikolas.backend0626.dto.PageableDto;
 import ee.nikolas.backend0626.entity.Product;
 import ee.nikolas.backend0626.repository.ProductRepository;
 import ee.nikolas.backend0626.util.ValidationUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -59,5 +64,12 @@ public class ProductController {
         }
         validationUtil.validateProduct(product);
         return productRepository.save(product);
+    }
+
+    // webSocket
+    @MessageMapping("/products-update") // kui tellin ja kogus väheneb, siis pöördume siia
+    @SendTo("/get-products") // avalehel subscriben
+    public Page<Product> greeting(PageableDto pageableDto) throws Exception {
+        return productRepository.findAll(PageRequest.of(pageableDto.getPage(), pageableDto.getSize(), Sort.by("stock").ascending()));
     }
 }
