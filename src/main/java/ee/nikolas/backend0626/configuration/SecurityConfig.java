@@ -6,6 +6,7 @@ import org.springdoc.core.service.RequestBodyService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
@@ -18,12 +19,23 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, RequestBodyService requestBodyBuilder) {
-        http.authorizeHttpRequests(request -> {
+        http
+            .cors(Customizer.withDefaults())
+            .authorizeHttpRequests(request -> {
+            request.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll();
             request.requestMatchers(HttpMethod.POST, "/signup").permitAll();
+            request.requestMatchers(HttpMethod.POST, "/smart-id").permitAll();
             request.requestMatchers(HttpMethod.POST, "/login").permitAll();
             request.requestMatchers(HttpMethod.GET, "/products").permitAll();
             request.requestMatchers(HttpMethod.GET, "/products/*").permitAll();
             request.requestMatchers(HttpMethod.GET, "/categories").permitAll();
+            request.requestMatchers(HttpMethod.POST, "/products").hasAuthority("ADMIN");
+            request.requestMatchers(HttpMethod.DELETE, "/products").hasAuthority("ADMIN");
+            request.requestMatchers(HttpMethod.PUT, "/products").hasAuthority("ADMIN");
+            request.requestMatchers(HttpMethod.POST, "/categories").hasAuthority("ADMIN");
+            request.requestMatchers(HttpMethod.DELETE, "/products").hasAuthority("ADMIN");
+            request.requestMatchers(HttpMethod.GET, "/orders").hasAuthority("ADMIN");
+            request.requestMatchers(HttpMethod.GET, "/persons").hasAuthority("SUPERADMIN");
             request.anyRequest().authenticated();
         })
             .csrf(AbstractHttpConfigurer::disable)

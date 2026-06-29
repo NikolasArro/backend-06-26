@@ -27,6 +27,7 @@ public class Person {
     private String street;
     private String streetNumber;
     private String postalIndex;
+    private PersonRole role;
 
     @OneToOne(cascade = CascadeType.ALL) // saan lisada koos Personiga uut Aadressi. Kustub automaatselt
     private Address address;

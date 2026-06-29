@@ -2,8 +2,10 @@ package ee.nikolas.backend0626.controller;
 
 import ee.nikolas.backend0626.dto.LoginDto;
 import ee.nikolas.backend0626.entity.Person;
+import ee.nikolas.backend0626.entity.PersonRole;
 import ee.nikolas.backend0626.repository.PersonRepository;
 import ee.nikolas.backend0626.security.JwtService;
+import ee.nikolas.backend0626.service.SmartIdService;
 import ee.nikolas.backend0626.util.ValidationUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +20,7 @@ public class AuthController {
     private final PersonRepository personRepository;
     private final ValidationUtil validationUtil;
     private final JwtService jwtService;
+    private final SmartIdService smartIdService;
 
     @GetMapping("persons")
     public List<Person> getPersons() {
@@ -54,10 +57,17 @@ public class AuthController {
         validationUtil.validatePersonCode(person.getPersonCode());
 
         Person dbPerson = personRepository.findByEmail(person.getEmail());
+        // TODO: Kõik, kes registreeruvad, registreeruvad rolliga CLIENT
         if (dbPerson != null) {
             throw new RuntimeException("Sellise emailiga kasutaja juba olemas");
         }
+        person.setRole(PersonRole.CUSTOMER);
 
         return personRepository.save(person);
+    }
+
+    @PostMapping("smart-id")
+    public String smartId() {
+        return smartIdService.initiateSmartIdConnection();
     }
 }

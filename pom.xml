@@ -28,6 +28,7 @@
 	</scm>
 	<properties>
 		<java.version>21</java.version>
+		<jersey.version>3.1.8</jersey.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -100,6 +101,29 @@
 			<artifactId>jjwt-jackson</artifactId>
 			<version>0.13.0</version>
 			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>ee.sk.smartid</groupId>
+			<artifactId>smart-id-java-client</artifactId>
+			<version>3.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.glassfish.jersey.core</groupId>
+			<artifactId>jersey-client</artifactId>
+			<version>${jersey.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.glassfish.jersey.inject</groupId>
+			<artifactId>jersey-hk2</artifactId>
+			<version>${jersey.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.glassfish.jersey.media</groupId>
+			<artifactId>jersey-media-json-jackson</artifactId>
+			<version>${jersey.version}</version>
 		</dependency>
 	</dependencies>
 

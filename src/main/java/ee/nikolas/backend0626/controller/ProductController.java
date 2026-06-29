@@ -5,6 +5,7 @@ import ee.nikolas.backend0626.entity.Product;
 import ee.nikolas.backend0626.repository.ProductRepository;
 import ee.nikolas.backend0626.util.ValidationUtil;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Log4j2
 @RestController
 @RequiredArgsConstructor
 @CrossOrigin(origins = "http://localhost:5173")
@@ -31,6 +33,7 @@ public class ProductController {
     // localhost:8080/products?page=0&size=2&sort=id,asc&categoryId=1
     @GetMapping("products")
     public Page<Product> getAllProducts(Pageable pageable, @RequestParam(required = false) Long categoryId) {
+        log.info("Võtan tooteid");
         if (categoryId == null) {
             return productRepository.findAll(pageable);
         }
