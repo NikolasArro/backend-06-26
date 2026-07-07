@@ -6,6 +6,9 @@ import ee.nikolas.backend0626.repository.ProductRepository;
 import ee.nikolas.backend0626.util.ValidationUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -49,17 +52,20 @@ public class ProductController {
         return productRepository.save(product); // INSERT INTO () VALUES <tabel>
     }
 
+    @CacheEvict(value = "products", key = "#id")
     @DeleteMapping("products/{id}")
     public List<Product> deleteProduct(@PathVariable Long id) {
         productRepository.deleteById(id);
         return productRepository.findAll(); // SELECT * FROM <tabel>
     }
 
+    @Cacheable(value = "products", key = "#id")
     @GetMapping("products/{id}")
     public Product getProduct(@PathVariable Long id) {
         return productRepository.findById(id).orElseThrow();
     }
 
+    @CachePut(value = "products", key = "#product.id")
     @PutMapping("products")
     public Product updateProduct(@RequestBody Product product) {
         if (product.getId() == null) {

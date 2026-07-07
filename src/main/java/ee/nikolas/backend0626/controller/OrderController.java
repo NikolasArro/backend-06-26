@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 @RestController
 @RequiredArgsConstructor
@@ -18,6 +19,11 @@ public class OrderController {
     @GetMapping("orders")
     public List<Order> getOrders() {
         return orderService.getOrders();
+    }
+
+    @GetMapping("orders/{id}")
+    public Order getOrderDetails(@PathVariable Long id) throws ExecutionException {
+        return orderService.getOrderDetails(id);
     }
 
     @PostMapping("orders")

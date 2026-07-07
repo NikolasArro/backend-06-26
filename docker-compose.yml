@@ -1,0 +1,42 @@
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_DB: veebipood
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: parool
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+
+  frontend:
+    build:
+      context: ../frontend0626
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    volumes:
+      - ../frontend0626:/app
+      - /app/node_modules
+    environment:
+      - VITE_API_URL=http://localhost:8080
+    depends_on:
+      - app
+
+  app:
+    image: veebipood
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/veebipood
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: parool
+      SPRING_DATA_REDIS_HOST: redis
+      SPRING_DATA_REDIS_PORT: 6379
+    depends_on:
+      - db
+      - redis

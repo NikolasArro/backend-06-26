@@ -1,11 +1,13 @@
 package ee.nikolas.backend0626.controller;
 
 import ee.nikolas.backend0626.dto.LoginDto;
+import ee.nikolas.backend0626.dto.PersonDto;
 import ee.nikolas.backend0626.entity.Person;
 import ee.nikolas.backend0626.entity.PersonRole;
 import ee.nikolas.backend0626.repository.PersonRepository;
 import ee.nikolas.backend0626.security.JwtService;
 import ee.nikolas.backend0626.service.SmartIdService;
+import ee.nikolas.backend0626.util.Mapper;
 import ee.nikolas.backend0626.util.ValidationUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -69,5 +71,12 @@ public class AuthController {
     @PostMapping("smart-id")
     public String smartId() {
         return smartIdService.initiateSmartIdConnection();
+    }
+
+    private final Mapper mapper;
+
+    @GetMapping("public-persons")
+    public List<PersonDto> getPublicPersons() {
+        return mapper.personsToPersonDtos(personRepository.findAll());
     }
 }
