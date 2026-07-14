@@ -23,6 +23,7 @@ public class AuthController {
     private final ValidationUtil validationUtil;
     private final JwtService jwtService;
     private final SmartIdService smartIdService;
+    private final Mapper mapper;
 
     @GetMapping("persons")
     public List<Person> getPersons() {
@@ -72,8 +73,6 @@ public class AuthController {
     public String smartId() {
         return smartIdService.initiateSmartIdConnection();
     }
-
-    private final Mapper mapper;
 
     @GetMapping("public-persons")
     public List<PersonDto> getPublicPersons() {
