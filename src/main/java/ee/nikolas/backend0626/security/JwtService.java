@@ -6,6 +6,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
@@ -16,11 +17,13 @@ import java.util.concurrent.TimeUnit;
 @RequiredArgsConstructor
 public class JwtService {
 
-    private final String superSecretKey = "ZmVkb3Vyc2VsdmVzZmF0ZGlzY3Vzc2lvbmVuZW15ZXF1YXRvcm1hbmNvbWluZ2Jsb2M";
-    private final SecretKey secretKey = Keys.hmacShaKeyFor(Decoders.BASE64URL.decode(superSecretKey));
+    @Value("${jwt.secretKey}")
+    private String superSecretKey;
+
     private final PersonRepository personRepository;
 
     public String generateToken(Person person) {
+        SecretKey secretKey = Keys.hmacShaKeyFor(Decoders.BASE64URL.decode(superSecretKey));
 
         Date current = new Date();
         Date date = new Date(current.getTime() + TimeUnit.MINUTES.toMillis(120));
@@ -33,6 +36,8 @@ public class JwtService {
     }
 
     public Person parseToken(String token) {
+        SecretKey secretKey = Keys.hmacShaKeyFor(Decoders.BASE64URL.decode(superSecretKey));
+
         String id = Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().getId();
         Long personId = Long.parseLong(id);
 

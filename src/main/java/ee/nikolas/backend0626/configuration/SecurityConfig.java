@@ -30,12 +30,13 @@ public class SecurityConfig {
             request.requestMatchers(HttpMethod.GET, "/products/*").permitAll();
             request.requestMatchers(HttpMethod.GET, "/categories").permitAll();
             request.requestMatchers(HttpMethod.POST, "/products").hasAuthority("ADMIN");
-            request.requestMatchers(HttpMethod.DELETE, "/products").hasAuthority("ADMIN");
+            request.requestMatchers(HttpMethod.DELETE, "/products/*").hasAuthority("ADMIN");
             request.requestMatchers(HttpMethod.PUT, "/products").hasAuthority("ADMIN");
             request.requestMatchers(HttpMethod.POST, "/categories").hasAuthority("ADMIN");
-            request.requestMatchers(HttpMethod.DELETE, "/products").hasAuthority("ADMIN");
+            request.requestMatchers(HttpMethod.DELETE, "/categories/*").hasAuthority("ADMIN");
             request.requestMatchers(HttpMethod.GET, "/orders").hasAuthority("ADMIN");
             request.requestMatchers(HttpMethod.GET, "/persons").hasAuthority("SUPERADMIN");
+            request.requestMatchers(HttpMethod.GET, "/send-email").permitAll();
             request.anyRequest().authenticated();
         })
             .csrf(AbstractHttpConfigurer::disable)
