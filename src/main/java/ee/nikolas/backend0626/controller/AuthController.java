@@ -64,7 +64,7 @@ public class AuthController {
         if (dbPerson != null) {
             throw new RuntimeException("Sellise emailiga kasutaja juba olemas");
         }
-        person.setRole(PersonRole.CUSTOMER);
+//        person.setRole(PersonRole.CUSTOMER); Lives paneme tagasi
 
         return personRepository.save(person);
     }
