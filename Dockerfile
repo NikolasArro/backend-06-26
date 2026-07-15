@@ -2,7 +2,7 @@
 # 1. BUILD STAGE
 # ==========================================
 # Use a Maven image that already has JDK 21 and Maven installed
-FROM maven:eclipse-temurin:21-jdk-alpine AS build
+FROM maven:3.9.6-eclipse-temurin-21-alpine AS build
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -18,7 +18,7 @@ RUN mvn clean package -DskipTests
 # 2. RUN STAGE
 # ==========================================
 # Use a lighter JRE image to run the application
-FROM eclipse-temurin:21-jdk-alpine
+FROM eclipse-temurin:21-jre-alpine
 
 WORKDIR /app
 
