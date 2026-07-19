@@ -2,7 +2,7 @@ package ee.nikolas.backend0626.controller;
 
 import ee.nikolas.backend0626.dto.OrderRowDto;
 import ee.nikolas.backend0626.entity.Order;
-import ee.nikolas.backend0626.service.OrderService;
+import ee.nikolas.backend0626.services.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

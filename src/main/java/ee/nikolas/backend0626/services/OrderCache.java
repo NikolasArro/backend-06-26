@@ -1,4 +1,4 @@
-package ee.nikolas.backend0626.service;
+package ee.nikolas.backend0626.services;
 
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;

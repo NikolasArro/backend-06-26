@@ -2,7 +2,7 @@ package ee.nikolas.backend0626.controller;
 
 import ee.nikolas.backend0626.dto.Greeting;
 import ee.nikolas.backend0626.dto.HelloMessage;
-import ee.nikolas.backend0626.service.EmailService;
+import ee.nikolas.backend0626.services.EmailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;

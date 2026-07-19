@@ -1,4 +1,4 @@
-package ee.nikolas.backend0626.service;
+package ee.nikolas.backend0626.services;
 
 import ee.nikolas.backend0626.entity.Order;
 import ee.nikolas.backend0626.repository.OrderRepository;

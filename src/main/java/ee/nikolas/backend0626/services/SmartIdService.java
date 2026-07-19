@@ -1,4 +1,4 @@
-package ee.nikolas.backend0626.service;
+package ee.nikolas.backend0626.services;
 
 import ee.sk.smartid.*;
 import ee.sk.smartid.common.devicelink.interactions.DeviceLinkInteraction;

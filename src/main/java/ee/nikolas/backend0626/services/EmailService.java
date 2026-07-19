@@ -1,4 +1,4 @@
-package ee.nikolas.backend0626.service;
+package ee.nikolas.backend0626.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
