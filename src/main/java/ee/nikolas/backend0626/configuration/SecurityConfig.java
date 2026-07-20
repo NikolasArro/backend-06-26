@@ -37,6 +37,10 @@ public class SecurityConfig {
             request.requestMatchers(HttpMethod.GET, "/orders").hasAuthority("ADMIN");
             request.requestMatchers(HttpMethod.GET, "/persons").hasAuthority("SUPERADMIN");
             request.requestMatchers(HttpMethod.GET, "/send-email").permitAll();
+            request.requestMatchers(HttpMethod.GET, "/supplier1").permitAll();
+            request.requestMatchers(HttpMethod.GET, "/supplier2").permitAll();
+            request.requestMatchers(HttpMethod.GET, "/parcelmachines").permitAll();
+            request.requestMatchers(HttpMethod.GET, "/check-payment").permitAll();
             request.anyRequest().authenticated();
         })
             .csrf(AbstractHttpConfigurer::disable)

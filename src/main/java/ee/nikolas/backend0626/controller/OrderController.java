@@ -1,6 +1,8 @@
 package ee.nikolas.backend0626.controller;
 
 import ee.nikolas.backend0626.dto.OrderRowDto;
+import ee.nikolas.backend0626.dto.ParcelMachine;
+import ee.nikolas.backend0626.dto.PaymentLink;
 import ee.nikolas.backend0626.entity.Order;
 import ee.nikolas.backend0626.services.OrderService;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +28,20 @@ public class OrderController {
     }
 
     @PostMapping("orders")
-    public Order saveOrder(@RequestBody List<OrderRowDto> orderRowDtos) {
-        return orderService.saveOrder(orderRowDtos);
+    public PaymentLink saveOrder(@RequestBody List<OrderRowDto> orderRowDtos) {
+        Order order = orderService.saveOrder(orderRowDtos); // miks salvestada enne? Maksesse saadame ID. Kui raha läheb maha, aga anmebaasi ei salvestu, siis on jälg olemas
+        return orderService.makePayment(order);
     }
+
+    @GetMapping("parcelmachines")
+    public List<ParcelMachine> getParcelMachines(@RequestParam String country) {
+        return orderService.getParcelMachines(country);
+    }
+
+    @GetMapping("check-payment")
+    public boolean checkPayment(@RequestParam String paymentReference) {
+        return orderService.checkPayment(paymentReference);
+    }
+
+
  }
