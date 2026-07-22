@@ -126,9 +126,11 @@ public class OrderService {
         Order order = orderRepository.findById(Long.valueOf(paymentBody.getOrder_reference().replace("ref-", ""))).orElseThrow();
         if (paymentBody.getPayment_state().equals("settled")) {
             order.setPaid(true);
+            orderRepository.save(order);
             return true;
         } else {
             order.setPaid(false);
+            orderRepository.save(order);
             return false;
         }
     }

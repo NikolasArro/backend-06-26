@@ -34,7 +34,7 @@ public class SecurityConfig {
             request.requestMatchers(HttpMethod.PUT, "/products").hasAuthority("ADMIN");
             request.requestMatchers(HttpMethod.POST, "/categories").hasAuthority("ADMIN");
             request.requestMatchers(HttpMethod.DELETE, "/categories/*").hasAuthority("ADMIN");
-            request.requestMatchers(HttpMethod.GET, "/orders").hasAuthority("ADMIN");
+            request.requestMatchers(HttpMethod.GET, "/orders").permitAll();
             request.requestMatchers(HttpMethod.GET, "/persons").hasAuthority("SUPERADMIN");
             request.requestMatchers(HttpMethod.GET, "/send-email").permitAll();
             request.requestMatchers(HttpMethod.GET, "/supplier1").permitAll();
