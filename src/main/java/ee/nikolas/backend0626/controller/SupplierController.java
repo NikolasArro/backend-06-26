@@ -2,6 +2,7 @@ package ee.nikolas.backend0626.controller;
 
 import ee.nikolas.backend0626.dto.Supplier1Product;
 import ee.nikolas.backend0626.dto.Supplier2Product;
+import ee.nikolas.backend0626.services.KafkaProducerService;
 import ee.nikolas.backend0626.services.SupplierService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ import java.util.List;
 public class SupplierController {
 
     private final SupplierService supplierService;
+    private final KafkaProducerService kafkaProducerService;
 
     @GetMapping("supplier1")
     private List<Supplier1Product> getSupplier1Products() {
@@ -22,6 +24,7 @@ public class SupplierController {
 
     @GetMapping("supplier2")
     private List<Supplier2Product> getSupplier2Products() {
+        kafkaProducerService.sendMessage("Vaadati supplier2 tooteid");
         return supplierService.getSupplier2Products();
     }
 }
