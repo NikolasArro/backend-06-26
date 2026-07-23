@@ -19,12 +19,12 @@ public class SupplierController {
 
     @GetMapping("supplier1")
     private List<Supplier1Product> getSupplier1Products() {
+        kafkaProducerService.sendMessage("Vaadati supplier2 tooteid");
         return supplierService.getSupplier1Products();
     }
 
     @GetMapping("supplier2")
     private List<Supplier2Product> getSupplier2Products() {
-        kafkaProducerService.sendMessage("Vaadati supplier2 tooteid");
         return supplierService.getSupplier2Products();
     }
 }
