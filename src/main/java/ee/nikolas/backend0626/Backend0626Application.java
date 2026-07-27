@@ -9,7 +9,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 @EnableCaching
 @EnableScheduling
-@EnableKafka
+//@EnableKafka
 public class Backend0626Application {
 
 	public static void main(String[] args) {
@@ -31,8 +31,16 @@ public class Backend0626Application {
 //11. E 20.07 pakiautomaadid (Omniva) + makse (EveryPay)
 //12. K 22.07 Kafka (message - async)
 //13. E 27.07 OAuth Google
-//14. K 29.07
+//14. R 31.07
 //15. T 04.08
 //16. N 06.08
 //17. T 11.08
 //18. T 18.08 --> poolik päev, lõpuprojekt
+
+//  OAuth2, JWT ja Keycloak
+//  Failide üleslaadimine, MinIO / Amazon S3
+//  Actuator, Prometheus ja Grafana
+//  Andmebaasi migratsioonid: Flyway, Liquibase
+//  Hibernate Advanced: N+1, Fetch Join, EntityGraph
+//  CI/CD: GitHub Actions ja Docker
+//  Testcontainers: PostgreSQL ja Redis

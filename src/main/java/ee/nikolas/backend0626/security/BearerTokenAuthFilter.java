@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+//@Component commented out for keycloak test
 @RequiredArgsConstructor
 public class BearerTokenAuthFilter extends OncePerRequestFilter {
 

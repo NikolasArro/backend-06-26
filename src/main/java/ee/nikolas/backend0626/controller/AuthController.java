@@ -9,9 +9,12 @@ import ee.nikolas.backend0626.services.SmartIdService;
 import ee.nikolas.backend0626.util.Mapper;
 import ee.nikolas.backend0626.util.ValidationUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -75,5 +78,11 @@ public class AuthController {
     @GetMapping("public-persons")
     public List<PersonDto> getPublicPersons() {
         return mapper.personsToPersonDtos(personRepository.findAll());
+    }
+
+    // Bonus: endpoint to see what user info was retrieved from GitHub/Google
+    @GetMapping("/user")
+    public Map<String, Object> user(@AuthenticationPrincipal OAuth2User principal) {
+        return principal.getAttributes();
     }
 }
