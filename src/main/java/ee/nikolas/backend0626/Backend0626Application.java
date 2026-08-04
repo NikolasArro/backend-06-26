@@ -9,7 +9,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 @EnableCaching
 @EnableScheduling
-//@EnableKafka
+@EnableKafka
 public class Backend0626Application {
 
 	public static void main(String[] args) {
@@ -31,7 +31,7 @@ public class Backend0626Application {
 //11. E 20.07 pakiautomaadid (Omniva) + makse (EveryPay)
 //12. K 22.07 Kafka (message - async)
 //13. E 27.07 OAuth Google, Keycloak
-//14. T 28.07 Failide üleslaadimine
+//14. T 28.07 Failide üleslaadimine, allalaadimine
 //15. T 04.08
 //16. N 06.08
 //17. T 11.08
