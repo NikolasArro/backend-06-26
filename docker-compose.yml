@@ -2,9 +2,9 @@ services:
   db:
     image: postgres
     environment:
-      POSTGRES_DB: veebipood
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: parool
+      POSTGRES_DB: ${POSTGRES_DB:-veebipood}
+      POSTGRES_USER: ${DATABASE_USERNAME:-postgres}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
     ports:
       - "5432:5432"
 
@@ -17,28 +17,14 @@ services:
     container_name: keycloak_demo
     image: quay.io/keycloak/keycloak:25.0.5
     ports:
-      - 9090:8080
+      - "9090:8080"
     environment:
-      KEYCLOAK_ADMIN: admin
-      KEYCLOAK_ADMIN_PASSWORD: password
+      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN:-admin}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
     volumes:
       - keycloak_data:/opt/keycloak/data
     command:
-      - 'start-dev'
-
-  frontend:
-    build:
-      context: ../frontend0626
-      dockerfile: Dockerfile
-    ports:
-      - "5173:5173"
-    volumes:
-      - ../frontend0626:/app
-      - /app/node_modules
-    environment:
-      - VITE_API_URL=http://localhost:8080
-    depends_on:
-      - app
+      - start-dev
 
   app:
     build:
@@ -48,16 +34,33 @@ services:
     ports:
       - "8080:8080"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/veebipood
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: parool
-      SPRING_DATA_REDIS_HOST: redis
-      SPRING_DATA_REDIS_PORT: 6379
+      SPRING_PROFILES_ACTIVE: dev
+
+      DATABASE_URL: jdbc:postgresql://db:5432/${POSTGRES_DB:-veebipood}
+      DATABASE_USERNAME: ${DATABASE_USERNAME:-postgres}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+
+      JWT_SECRET: ${JWT_SECRET}
+
+      MAIL_HOST: ${MAIL_HOST:-sandbox.smtp.mailtrap.io}
+      MAIL_PORT: ${MAIL_PORT:-2525}
+      MAIL_USERNAME: ${MAIL_USERNAME}
+      MAIL_PASSWORD: ${MAIL_PASSWORD}
+      MAIL_FROM: ${MAIL_FROM}
+
       GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
       GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
+
+      KEYCLOAK_ISSUER_URI: http://keycloak:8080/realms/demo
+      KEYCLOAK_JWK_SET_URI: http://keycloak:8080/realms/demo/protocol/openid-connect/certs
+
     depends_on:
       - db
       - redis
+      - keycloak
 
 volumes:
   keycloak_data:

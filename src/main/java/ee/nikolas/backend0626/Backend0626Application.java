@@ -32,10 +32,10 @@ public class Backend0626Application {
 //12. K 22.07 Kafka (message - async)
 //13. E 27.07 OAuth Google, Keycloak
 //14. T 28.07 Failide üleslaadimine, allalaadimine
-//15. T 04.08
-//16. N 06.08
-//17. T 11.08
-//18. T 18.08 --> poolik päev, lõpuprojekt
+//15. E 10.08 ? UI/UX
+//16. K 11.08 ? AI
+//17. T 18.08
+//18. T 25.08 --> poolik päev, lõpuprojekt
 
 //  OAuth2, JWT ja Keycloak
 //  Failide üleslaadimine, MinIO / Amazon S3
